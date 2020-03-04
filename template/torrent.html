@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Torrent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%include file="js_common_include.html"/>
+    <script type="text/javascript" src="/js/torrent.js"></script>
+</head>
+<body>
+    <div>
+        <%include file="nav.html"/>
+        <div ng-app="Torrent">
+            <div ng-controller="myCtrl">
+                <input type="file" style="display:none" name="torrent" id="torrent" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                <button type="button" class="btn-sm btn-primary" ng-click="getFiles()">add torrent</button>
+                <button type="button" class="btn-sm btn-primary" ng-click="action('pause')">pause</button>
+                <div class="container-fluid">
+                    <div class="table-responsive-xl">
+                    <table class="table table-sm table-hover text-nowrap">
+                        <thead>
+                            <tr class="info">
+                                <td ng-click="sortBy('position')">#</td>
+                                <td ng-click="sortBy('name')">name</td>
+                                <td ng-click="sortBy('progress')">progress</td>
+                                <td ng-click="sortBy('upRate')">download / upload</td>
+                                <td ng-click="sortBy('size')">size</td>
+                                <td ng-click="sortBy('size_up')">downloaded / uploaded</td>
+                                <td>time</td>
+                                <td>seed / peer</td>
+                                <td ng-click="sortBy('state')">state</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in names|orderBy:propertyName:reverse" class="{{get_class(x.state)}}">
+                                <td>{{ x.position }}</td>
+                                <td><a href="torrent.html?hash={{x.hash}}">{{x.name }}</a></td>
+                                <td>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ x.progress}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ x.progress*100}}%">{{ (x.progress*100).toFixed(2) }}%
+                                    </div>
+                                </td>
+                                <td>{{convert_bytes(x.downRate)}}/s / {{convert_bytes(x.upRate)}}/s</td>
+                                <td>{{convert_bytes(x.size)}}</td>
+                                <td>{{convert_bytes(x.size_down)}} / {{convert_bytes(x.size_up)}}</td>
+                                <td>{{ ((x.size-x.size_down)/x.downRate/60).toFixed(1) }}Min</td>
+                                <td>{{ x.seeds }} / {{ x.peers }}</td>
+                                <td>{{ x.state }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

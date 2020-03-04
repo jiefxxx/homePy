@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%include file="js_common_include.html"/>
+    <script type="text/javascript" src="/js/test.js"></script>
+</head>
+<body>
+    <div class="d-flex">
+        <%include file="nav.html"/>
+        <div ng-app="myApp" class="container-fluid">
+
+            <div ng-controller="myCtrl" class="row" >
+                <canvas class="col-md-6 h-50" id="tempChart"></canvas>
+                <canvas class="col-md-6 h-50" id="humiChart"></canvas>
+            </div>
+
+            <div ng-controller="test" class="row">
+                <canvas id="testChart" class="col-md-12 h-50"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

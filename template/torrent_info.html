@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Torrent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%include file="js_common_include.html"/>
+    <script type="text/javascript" src="/js/torrent.js"></script>
+</head>
+<body>
+    <div>
+        <%include file="nav.html"/>
+        <div ng-app="Torrent">
+            <div ng-controller="myCtrl" class="container-fluid">
+                <h2>${torrent_info["name"]} </h2>
+                <p>hash: ${torrent_info["hash"]}</p>
+                <p>path: ${torrent_info["path"]}</p>
+                 <div class="row">
+                    <div class="col-md-6"> progress: ${torrent_info["progress"]} </div>
+                    <div class="col-md-6"> size: ${torrent_info["size"]} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> state: ${torrent_info["state"]} </div>
+                    <div class="col-md-6"> position: ${torrent_info["position"]} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> seed: ${torrent_info["seeds"]} </div>
+                    <div class="col-md-6"> peer: ${torrent_info["peers"]} </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> upload: ${torrent_info["upRate"]} </div>
+                    <div class="col-md-6"> download: ${torrent_info["downRate"]} </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-6"> uploaded: ${torrent_info["size_up"]} </div>
+                    <div class="col-md-6"> downloaded: ${torrent_info["size_down"]} </div>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn-sm btn-primary" ng-click="action('remove',hash='${torrent_info["hash"]}')">remove</button>
+                    <a class="btn btn-primary" href="/torrent/download?hash=${torrent_info["hash"]}" role="button">Download</a>
+                </div>
+                <p></p><p></p>
+                <h4>Files:</h4>
+                <p></p>
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td><td>path</td><td>priority</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        % for a in torrent_info["files"]:
+                            <tr>
+                                <td>${str(a[0])}</td><td>${str(a[1])}</td><td>${str(a[2])}</td>
+                            </tr>
+                        % endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

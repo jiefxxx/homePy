@@ -1,0 +1,11 @@
+<%page args="active='one'"/>
+
+<ul class="nav nav-pills">
+    % for a in ("index", "torrent", "network"):
+        %if a == active:
+            <li><a class="nav-link active" href="${a+'.html'}">${a}</a></li>
+        %else:
+            <li><a class="nav-link" href="${a+'.html'}">${a}</a></li>
+        %endif
+    % endfor
+</ul>
